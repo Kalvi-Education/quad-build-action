@@ -10,7 +10,7 @@ inputs:
     required: true
     default: 'asia-southeast1'
   project:  # id of input
-    description: 'GCP GAR Region'
+    description: 'GCP Project ID'
     required: true
     default: ''
 outputs:
