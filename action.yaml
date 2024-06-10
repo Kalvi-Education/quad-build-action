@@ -16,6 +16,10 @@ inputs:
   service_token:
     description: 'GCP Service Token'
     required: true
+  npm_access_token:
+    description: 'GCP Service Token'
+    required: false
+    default: ''
 outputs:
   version:
     description: "Version that pushed to GAR"
@@ -51,7 +55,7 @@ runs:
 
     - name: Build the Docker image
       shell: bash
-      run: docker build . --tag ${{ inputs.region }}-docker.pkg.dev/${{ inputs.project }}/quad/${{ inputs.app }}:${{ steps.date.outputs.date }}-${{ env.GITHUB_SHA_SHORT }}
+      run: docker build --build-arg NPM_ACCESS_TOKEN=${{inputs.npm_access_token}} . --tag ${{ inputs.region }}-docker.pkg.dev/${{ inputs.project }}/quad/${{ inputs.app }}:${{ steps.date.outputs.date }}-${{ env.GITHUB_SHA_SHORT }} 
 
     - name: Authorize docker to push to GAR
       shell: bash
